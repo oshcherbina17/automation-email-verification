@@ -10,7 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class VerificationSendMailTest implements IAbstractTest {
-    final String EMAIL ="olha_shcherbina@ukr.net";
+    final String EMAIL ="test@ukr.net";
     EmailVerification emailVerification = new EmailVerification();
 
     @Test()
