@@ -11,24 +11,23 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
 import jakarta.mail.Store;
 
-public class EmailVerification {
+import static com.zebrunner.carina.demo.sendtestemail.enums.EmailFolders.INBOX;
+import static com.zebrunner.carina.demo.utils.TestDataConstants.HOST;
+import static com.zebrunner.carina.demo.utils.TestDataConstants.PASSWORD;
+import static com.zebrunner.carina.demo.utils.TestDataConstants.USERNAME;
 
-    String host = "imap.ukr.net";
+public class EmailVerificationUtils {
 
-    String username = "test@ukr.net";
-
-    String password = "*****************";
-
-    private static final Logger logger = LoggerFactory.getLogger(EmailVerification.class);
+    private static final Logger logger = LoggerFactory.getLogger(EmailVerificationUtils.class);
 
     public String readInboundEmails() {
         Session session = this.getImapSession();
         String buff = "";
         try {
             Store store = session.getStore("imap");
-            store.connect(host, username, password);
+            store.connect(HOST, USERNAME, PASSWORD);
 
-            Folder inbox = store.getFolder("INBOX");
+            Folder inbox = store.getFolder(INBOX.getNameFolders());
             inbox.open(Folder.READ_ONLY);
 
             Message[] messages = inbox.getMessages();
@@ -48,7 +47,7 @@ public class EmailVerification {
     private Session getImapSession() {
         Properties props = new Properties();
         props.setProperty("mail.imap.ssl.enable", "true");
-        props.setProperty("mail.imap.host", host);
+        props.setProperty("mail.imap.host", HOST);
         props.setProperty("mail.imap.port", "993");
 
 
